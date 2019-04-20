@@ -8,6 +8,7 @@ const initial_state = {
     travel_date: "01/06/2019",
     value_one_hour: "20",
     value_ten_hours: "150",
+    is_debugging: false,
 };
 
 class TravelOptionsForm extends React.Component {
@@ -17,13 +18,13 @@ class TravelOptionsForm extends React.Component {
         this.state = initial_state;
 
         this.handleText = this.handleText.bind(this);
+        this.handleCheckbox = this.handleCheckbox.bind(this);
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
 
         this.props.handleSave(this.state);
-        this.setState(initial_state);
     };
 
     handleText(e) {
@@ -32,17 +33,24 @@ class TravelOptionsForm extends React.Component {
         });
     };
 
+    handleCheckbox(e) {
+        this.setState({
+            [e.target.name]: e.target.checked
+        });
+    };
+
     render() {
         return (
             <React.Fragment>
                 <form onSubmit={ this.handleSubmit }>
-                    <p>Origin Latitude:       <input onChange={ this.handleText } name="origin_lat"      type="text" value={ this.state.origin_lat }/></p>
-                    <p>Origin Longitude:      <input onChange={ this.handleText } name="origin_lon"      type="text" value={ this.state.origin_lon }/></p>
-                    <p>Destination Latitude:  <input onChange={ this.handleText } name="destination_lat" type="text" value={ this.state.destination_lat }/></p>
-                    <p>Destination Longitude: <input onChange={ this.handleText } name="destination_lon" type="text" value={ this.state.destination_lon }/></p>
-                    <p>Travel Date:           <input onChange={ this.handleText } name="travel_date"     type="text" value={ this.state.travel_date }/></p>
-                    <p>Value of One Hour:     <input onChange={ this.handleText } name="value_one_hour"  type="text" value={ this.state.value_one_hour }/></p>
-                    <p>Value of Ten Hours:    <input onChange={ this.handleText } name="value_ten_hours" type="text" value={ this.state.value_ten_hours }/></p>
+                    <p>Origin Latitude:           <input onChange={ this.handleText } name="origin_lat"      type="text" value={ this.state.origin_lat }/></p>
+                    <p>Origin Longitude:          <input onChange={ this.handleText } name="origin_lon"      type="text" value={ this.state.origin_lon }/></p>
+                    <p>Destination Latitude:      <input onChange={ this.handleText } name="destination_lat" type="text" value={ this.state.destination_lat }/></p>
+                    <p>Destination Longitude:     <input onChange={ this.handleText } name="destination_lon" type="text" value={ this.state.destination_lon }/></p>
+                    <p>Travel Date:               <input onChange={ this.handleText } name="travel_date"     type="text" value={ this.state.travel_date }/></p>
+                    <p>Value of One Hour ($USD):  <input onChange={ this.handleText } name="value_one_hour"  type="text" value={ this.state.value_one_hour }/></p>
+                    <p>Value of Ten Hours ($USD): <input onChange={ this.handleText } name="value_ten_hours" type="text" value={ this.state.value_ten_hours }/></p>
+                    <p>Get Dummy Payload:        <input onChange={ this.handleCheckbox } name="is_debugging" type="checkbox" checked={ this.state.is_debugging }/></p>
                     <button>Get Travel Options</button>
                 </form>
             </React.Fragment>
